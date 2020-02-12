@@ -20,7 +20,7 @@ const Card = ({ card, onCardOpen }) => {
   }
 
   return (
-    <div className="card" onClick={clickHandler}>
+    <div className={"card" + (card.matched ? " matched" : "")} onClick={clickHandler}>
       {getCard()}
     </div>
   )

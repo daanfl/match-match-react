@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './Playfield.css'
 import Card from './Card'
 import axios from 'axios';
+import spinner from './spinner.gif'
 
 const Playfield = ({ pairs }) => {
   const pairVisibleInMilliseconds = 1500
+  const [loading, setLoading] = useState(true)
   const [images, setImages] = useState([])
   const [turns, setTurns] = useState(0)
   const [pairsMatched, setPairsMatched] = useState(0)
@@ -19,6 +21,7 @@ const Playfield = ({ pairs }) => {
   useEffect(() => {
     if (images.length === pairs) {
       generateCards()
+      setLoading(false)
     }
   }, [images])
 
@@ -137,24 +140,37 @@ const Playfield = ({ pairs }) => {
   }
 
   return (
-    <div className="playfield">
-      <div className="statistics">
-        <span>Turns: {turns}</span>
-        <span>Pairs: {pairsMatched} of {pairs}</span>
+    <div className={"playfield"}>
+      { loading && (
+        <div className="spinner">
+          <div>
+            <img src={spinner} />
+          </div>
+          <span>Loading game...</span>
+        </div>
+      )}
 
-        { pairsMatched === pairs && (
-          <button onClick={resetGame}>New game</button>
-        )}
-      </div>
+      {!loading && (
+        <>
+          <div className="statistics">
+            <span>Turns: {turns}</span>
+            <span>Pairs: {pairsMatched} of {pairs}</span>
 
-      { deck.map(card => {
-          return <Card
-            key={card.number}
-            card={card}
-            onCardOpen={openCard}
-          />
-        })
-      }
+            { pairsMatched === pairs && (
+              <button onClick={resetGame}>New game</button>
+            )}
+          </div>
+
+          { deck.map(card => {
+              return <Card
+                key={card.number}
+                card={card}
+                onCardOpen={openCard}
+              />
+            })
+          }
+        </>
+      )}
     </div>
   );
 }
