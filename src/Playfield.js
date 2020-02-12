@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Playfield.css'
 import Card from './Card'
-import axios from 'axios';
+import axios from 'axios'
 import spinner from './spinner.gif'
 
 const Playfield = ({ pairs }) => {
@@ -36,6 +36,7 @@ const Playfield = ({ pairs }) => {
     deck.forEach((element, index) => {
       if (element.number === card.number) {
         newDeck[index].open = true
+        return
       }
     })
 
@@ -172,7 +173,7 @@ const Playfield = ({ pairs }) => {
         </>
       )}
     </div>
-  );
+  )
 }
 
 export default Playfield

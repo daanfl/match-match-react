@@ -10,3 +10,9 @@
 .spinner span {
   font-size: 24px;
 }
+
+.statistics span {
+  display: inline-block;
+  font-size: 24px;
+  margin: 25px;
+}
